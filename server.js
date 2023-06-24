@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Set up Handlebars as the template engine
-app.engine('handlebars', exphbs());
+//app.engine('handlebars', exphbs());
 
 app.set('view engine', 'handlebars');
 
