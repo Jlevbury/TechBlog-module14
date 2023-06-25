@@ -1,0 +1,28 @@
+<!-- views/homepage.handlebars -->
+
+<!-- Display existing blog posts -->
+{{#if blogPosts.length}}
+  <h1>Existing Blog Posts:</h1>
+  <ul>
+    {{#each blogPosts}}
+      <li>
+        <h2>{{title}}</h2>
+        <p>Published on {{formatDate createdAt}}</p>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No blog posts available.</p>
+{{/if}}
+
+<!-- Navigation links -->
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/dashboard">Dashboard</a></li>
+  {{#if authenticated}}
+    <li><a href="/logout">Logout</a></li>
+  {{else}}
+    <li><a href="/login">Login</a></li>
+    <li><a href="/signup">Sign Up</a></li>
+  {{/if}}
+</ul>
