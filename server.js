@@ -38,7 +38,7 @@ const path = require('path');
 
 // Import your routes here
 const authRoutes = require('./routes/index');
-const { BlogPost } = require('./models'); // Import the BlogPost model
+const { BlogPost } = require('./models/blogPost'); // Import the BlogPost model
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -72,7 +72,7 @@ app.use(
 );
 
 // Set up your routes here
-app.use('/auth', authRoutes);
+app.use('/routes/api/index.js', authRoutes);
 
 // Homepage route
 app.get('/', async (req, res) => {
