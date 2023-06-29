@@ -5,7 +5,8 @@ const path = require('path');
 
 // Import your routes here
 const authRoutes = require('./routes/index');
-const { BlogPost } = require('./models/blogPost'); // Import the BlogPost model
+const { BlogPost } = require('./models');
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -53,6 +54,7 @@ app.get('/', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
