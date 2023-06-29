@@ -1,0 +1,11 @@
+<!-- blogPosts.handlebars -->
+
+<h1>Blog Posts</h1>
+
+{{#each blogPosts}}
+  <div class="blog-post">
+    <h2>{{title}}</h2>
+    <p>{{content}}</p>
+    <p>Published on: {{formatDate createdAt}}</p>
+  </div>
+{{/each}}

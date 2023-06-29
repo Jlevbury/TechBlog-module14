@@ -2,14 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { BlogPost } = require('./blogPostRoutes');
 
-// Define your routes here
-// Create a new blog post
+
 router.post('/blogposts', async (req, res) => {
     try {
       const { title, content } = req.body;
   
       // Create the blog post using the BlogPost model
-      const blogPost = await BlogPost.create({ title, content });
+      const blogPost = await blogPost.create({ title, content });
   
       res.status(201).json(blogPost);
     } catch (error) {

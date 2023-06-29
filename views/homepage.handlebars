@@ -1,10 +1,10 @@
 <!-- views/homepage.handlebars -->
 
 <!-- Display existing blog posts -->
-{{#if blogPosts.length}}
+{{#if Posts.length}}
   <h1>Existing Blog Posts:</h1>
   <ul>
-    {{#each blogPosts}}
+    {{#each Posts}}
       <li>
         <h2>{{title}}</h2>
         <p>Published on {{formatDate createdAt}}</p>

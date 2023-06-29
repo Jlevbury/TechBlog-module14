@@ -17,5 +17,6 @@ const seedData = async () => {
   }
 };
 
+
 seedData();
 

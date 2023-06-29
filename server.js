@@ -40,21 +40,20 @@ app.use(
 );
 
 // Set up your routes here
-app.use('/auth', authRoutes);
+app.use('/blogPost', blogPostRoutes);
 
 // Homepage route
 app.get('/', async (req, res) => {
   try {
     // Fetch existing blog posts from the database
-    const blogPosts = await BlogPost.findAll({});
+    const blogPost = await blogPost.findAll({});
 
-    res.render('homepage', { blogPosts, authenticated: req.session.authenticated });
+    res.render('blogPost', { blogPost });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
