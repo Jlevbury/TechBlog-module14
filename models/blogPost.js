@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/connection');
+
 
 const BlogPost = sequelize.define('BlogPost', {
   title: {
