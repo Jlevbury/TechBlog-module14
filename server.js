@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
-const routes = require('../routes'); // if you want to specify the index file in routes directory
+const routes = require('./routes'); // if you want to specify the index file in routes directory
 
 
 const helpers = require('./utils/helpers');
