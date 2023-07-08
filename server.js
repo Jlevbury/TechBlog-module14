@@ -29,7 +29,12 @@ const sess = {
   })
 };
 
-app.use(session(sess));
+app.use(session({
+  secret: 'Super secret secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }  // true if using HTTPS
+}));
 
 // Inform Express.js on which template engine to use
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));

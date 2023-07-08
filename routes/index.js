@@ -1,12 +1,14 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const routes = require('./routes');
+app.use(routes);
 
 // Import routes
-const userRoutes = require('./userRoutes');
-const blogPostRoutes = require('./blogPostRoutes');
+const apiRoutes = require('./api'); // Includes all the api related routes
+const homeRoutes = require('./homeRoutes'); // Include all home related routes
 
 // Define the routes usage
-router.use('/api/auth', userRoutes);
-router.use('/api/posts', blogPostRoutes);
+router.use('/', homeRoutes);
+router.use('/api', apiRoutes);
 
 module.exports = router;
+

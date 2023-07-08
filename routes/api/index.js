@@ -1,8 +1,11 @@
 const router = require('express').Router();
-const apiRoutes = require('./api');
-const homeRoutes = require('./homeRoutes');
 
-router.use('/', homeRoutes);
-router.use('/api', apiRoutes);
+// Import routes
+const userRoutes = require('./userRoutes');
+const blogPostRoutes = require('./blogPostRoutes');
+
+// Define the routes usage
+router.use('/auth', userRoutes); // No need of '/api' prefix here
+router.use('/posts', blogPostRoutes); // No need of '/api' prefix here
 
 module.exports = router;
