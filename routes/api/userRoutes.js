@@ -25,13 +25,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create a new user
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
+    const userData = await User.create(req.body);
+
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+      
+      res.status(200).json(userData);
+    });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
