@@ -1,28 +1,8 @@
 const router = require('express').Router();
-const User = require('./userRoutes');
+const User = require('../models/User');
 
-// Get all users
-router.get('/', async (req, res) => {
-  try {
-    const users = await User.findAll();
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// Get a single user by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const user = await User.findByPk(req.params.id);
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
-      return;
-    }
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+router.get('/signup', (req, res) => {
+    res.render('signup');
 });
 
 router.post('/signup', async (req, res) => {
@@ -40,36 +20,51 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// Update a user
-router.put('/:id', async (req, res) => {
-  try {
-    const user = await User.update(req.body, {
-      where: { id: req.params.id },
-    });
-    if (!user[0]) {
-      res.status(404).json({ message: 'User not found' });
-      return;
-    }
-    res.status(200).json({ message: 'User updated successfully' });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+router.get('/login', (req, res) => {
+    res.render('login');
 });
 
-// Delete a user
-router.delete('/:id', async (req, res) => {
-  try {
-    const user = await User.destroy({
-      where: { id: req.params.id },
-    });
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
-      return;
+router.post('/login', async (req, res) => {
+    console.log(req.body);
+    try {
+        const dbUserData = await User.findOne({
+            where: {
+              username: req.body.username,  // Use 'username' here instead of 'email'
+            },
+        });
+
+      if (!dbUserData) {
+        res.status(400).json({ message: 'No user account found!' });
+        return;
+      }
+
+      const validPassword = await dbUserData.checkPassword(req.body.password);
+
+      if (!validPassword) {
+        res.status(400).json({ message: 'Incorrect password!' });
+        return;
+      }
+
+      req.session.save(() => {
+        req.session.user_id = dbUserData.id;
+        req.session.logged_in = true;
+        
+        res.json({ user: dbUserData, message: 'You are now logged in!' });
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
     }
-    res.status(200).json({ message: 'User deleted successfully' });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+});
+
+router.post('/logout', (req, res) => {
+    if (req.session.logged_in) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
 });
 
 module.exports = router;
