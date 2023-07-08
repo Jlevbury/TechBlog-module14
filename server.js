@@ -1,60 +1,51 @@
-const express = require('express');
-const exphbs = require('express-handlebars');
-const session = require('express-session');
 const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const routes = require('./routes');
+const helpers = require('./utils/helpers');
 
-// Import your routes here
-const authRoutes = require('./routes/index');
-const { BlogPost } = require('./models');
-
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars as the template engine
-app.engine(
-  'handlebars',
-  exphbs.engine({
-    defaultLayout: 'main',
-    helpers: {
-      // Helper function to format dates
-      formatDate: function (date) {
-        return new Date(date).toLocaleDateString();
-      },
-    },
-  })
-);
+// Set up Handlebars.js engine with custom helpers
+const hbs = exphbs.create({ helpers });
 
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
+};
+
+app.use(session(sess));
+
+// Inform Express.js on which template engine to use
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// Set up the static directory
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set up session middleware
-app.use(
-  session({
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+app.use(routes);
 
-// Set up your routes here
-app.use('/blogPost', blogPostRoutes);
-
-// Homepage route
-app.get('/', async (req, res) => {
-  try {
-    // Fetch existing blog posts from the database
-    const blogPost = await blogPost.findAll({});
-
-    res.render('blogPost', { blogPost });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
+app.get("/", (req, res) => {
+  res.render("homepage");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
 });

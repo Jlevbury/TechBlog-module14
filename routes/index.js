@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
-//const authRoutes = require('./authRoutes');
+
+// Import routes
 const blogPostRoutes = require('./api/blogPostRoutes');
 
+// Define the routes usage
+router.use('/api', blogPostRoutes);
 
-//router.use('/auth', authRoutes);
-router.use('/', blogPostRoutes);
-
+router.get("/", (req, res) => {
+    res.render("homepage");
+  });
+  
 module.exports = router;
