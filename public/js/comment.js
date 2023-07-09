@@ -2,10 +2,14 @@ const newCommentHandler = async (event) => {
     event.preventDefault();
   
     
-    const comment = document.querySelector('#comment-desc').value.trim();
+    const comment = document.querySelector('#comment').value.trim();
     const blog_id = document.querySelector('#blog_id').value;
     if (comment) {
+      console.log(document.querySelector('#blog_id'));
+console.log(document.querySelector('#blog_id').value);
+
       const response = await fetch(`/api/comment`, {
+        
         method: 'POST',
         body: JSON.stringify({ comment, blog_id }),
         headers: {
