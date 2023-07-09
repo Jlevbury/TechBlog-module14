@@ -8,11 +8,26 @@
   {{#if error}}
     <p class="error">{{error}}</p>
   {{/if}}
- <form action="/routes/api/userRoutes.js" method="POST">
-  <input type="text" name="username" placeholder="username">
-  <input type="text" name="password" placeholder="password">
+ <!--form action="/api/login" method="POST" class="login-form">
+  <input type="text" id="name" placeholder="username">
+  <input type="password" id="password" name="password" placeholder="password">
   <button type="submit">Log In</button>
-</form>
-
+</form-->
+<form class="form login-form">
+      <div class="form-group">
+        <label for="email-login">email:</label>
+        <input class="form-input" type="text" id="email-login" />
+      </div>
+      <div class="form-group">
+        <label for="password-login">password:</label>
+        <input class="form-input" type="password" id="password-login" />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">login</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+<script src="/public/js/login.js">  </script>
 </body>
 </html>
