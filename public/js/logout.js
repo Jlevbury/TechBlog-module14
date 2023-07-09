@@ -1,5 +1,5 @@
 const logout = async () => {
-  const response = await fetch('/api/users/logout', {
+  const response = await fetch('/api/logout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -11,4 +11,12 @@ const logout = async () => {
   }
 };
 
-document.querySelector('#logout').addEventListener('click', logout);
+document.addEventListener('DOMContentLoaded', (event) => {
+  const logoutButton = document.querySelector('#logout');
+  if (logoutButton) {
+      logoutButton.addEventListener('click', logout);
+  } else {
+      console.error('Logout button not found');
+  }
+});
+
