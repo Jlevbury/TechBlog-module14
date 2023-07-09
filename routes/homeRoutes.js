@@ -92,5 +92,7 @@ router.get('/signup', (req, res) => {
   
     res.render('login');
   });
-
+router.get("/post", (req, res) =>{
+    res.render("blogPosts");
+});
 module.exports = router;

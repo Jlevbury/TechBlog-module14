@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { BlogPost } = require('../../models');  
 const withAuth = require('../../utils/auth');
 
-router.post('/', withAuth, async (req, res) => {
+router.post('/',  async (req, res) => {
   try {
     const newBlog = await BlogPost.create({
       ...req.body,
@@ -14,7 +14,7 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/', withAuth, async (req, res) => {
+router.get('/',  async (req, res) => {
   try {
     const blogPostsData = await BlogPost.findAll({
       where: {
@@ -24,7 +24,7 @@ router.get('/', withAuth, async (req, res) => {
 
     const blogPosts = blogPostsData.map((blogPost) => blogPost.get({ plain: true }));
 
-    res.render('dashboard', { blogPosts, logged_in: req.session.logged_in });
+    res.render('blogposts', { blogPosts, logged_in: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   }

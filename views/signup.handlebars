@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Sign Up</title>
-</head>
-<body>
-  <h1>Sign Up</h1>
-  {{#if error}}
-    <p class="error">{{error}}</p>
-  {{/if}}
-<form action="/api/signup" method="POST">
-  <input type="text" name="username" placeholder="Username">
-  <input type="email" name="email" placeholder="Email">
-  <input type="password" name="password" placeholder="Password">
-  <button type="submit">Sign Up</button>
-</form>
-
-</body>
-</html>
+<form class="form signup-form">
+      <div class="form-group">
+        <label for="name">name:</label>
+        <input class="form-input" type="text" id="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">email:</label>
+        <input class="form-input" type="text" id="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">password:</label>
+        <input class="form-input" type="password" id="password" />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">signup</button>
+      </div>
+    </form>
+    <script src="./js/signUp.js"></script>
