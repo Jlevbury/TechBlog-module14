@@ -30,7 +30,7 @@ document.querySelector('.new-post-form').addEventListener('submit', async (event
       const content = form.querySelector('textarea[name="content"]').value.trim();
   
       if (title && content) {
-        const response = await fetch(`/api/blogs/${id}`, {
+        const response = await fetch(`/api/posts/${id}`, {
           method: 'PUT',
           body: JSON.stringify({ title, content }),
           headers: { 'Content-Type': 'application/json' },
@@ -49,7 +49,7 @@ document.querySelector('.new-post-form').addEventListener('submit', async (event
 document.querySelectorAll('.delete-btn').forEach((button) => {
     button.addEventListener('click', async () => {
       const id = button.getAttribute('data-id');
-      const response = await fetch(`/api/blog/${id}`, {  
+      const response = await fetch(`/api/posts/${id}`, {  
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
       });

@@ -30,7 +30,7 @@ console.log(blogPosts);
   }
 });
 
-router.delete('/api/blogs/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
       const blog = await Blog.destroy({
           where: {
