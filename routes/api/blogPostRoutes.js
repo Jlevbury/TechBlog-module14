@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Blog } = require('../../models');  
+const { Blog, Comment, User } = require('../../models');  // Import the Comment and User models
 const withAuth = require('../../utils/auth');
 
 router.post('/',  async (req, res) => {
@@ -23,8 +23,38 @@ router.get('/',  async (req, res) => {
     });
 
     const blogPosts = blogPostsData.map((blogPost) => blogPost.get({ plain: true }));
-console.log(blogPosts);
+    console.log(blogPosts);
     res.render('profile', { blogPosts, logged_in: req.session.logged_in });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/:id', withAuth, async (req, res) => {  // get a blog post by its ID
+  try {
+    const blogData = await Blog.findByPk(req.params.id, {
+      include: [
+        {
+          model: Comment,
+          include: [User]  // include this if you want to display the user who made the comment
+        },
+        {
+          model: User
+        }
+      ]
+    });
+
+    if (!blogData) {
+      res.status(404).json({ message: 'No blog found with this id!' });
+      return;
+    }
+
+    const blog = blogData.get({ plain: true });
+
+    res.render('blog', { 
+      ...blog,
+      logged_in: req.session.logged_in 
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -48,6 +78,5 @@ router.delete('/:id', async (req, res) => {
       res.status(500).json(err);
   }
 });
-
 
 module.exports = router;

@@ -24,10 +24,8 @@ console.log(document.querySelector('#blog_id').value);
     }
   };
 
-  window.onload=function(){
-
+ window.onload = function() {
   document
     .querySelector('.new-comment-form')
     .addEventListener('submit', newCommentHandler);
-
-  }
+};
