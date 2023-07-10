@@ -12,19 +12,18 @@
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                {{#if logged_in}}
-                    <li><a href="/post">Write new post</a></li>
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                {{else}}
-                    <li><a href="/signup">Sign Up</a></li>
-                    <li><a href="/login">Login</a></li>
-                {{/if}}
-            </ul>
-        </nav>
+     <nav>
+    <button onclick="location.href='/'">Home</button>
+    {{#if logged_in}}
+        <button onclick="location.href='/post'">Write new post</button>
+        <button onclick="location.href='/profile'">Dashboard</button>
+        <button id="logout" onclick="location.href='/logout'">Logout</button>
+    {{else}}
+        <button onclick="location.href='/signup'">Sign Up</button>
+        <button  id="login" onclick="location.href='/login'">Login</button>
+    {{/if}}
+</nav>
+
     </header>
     <main>
         {{{body}}}

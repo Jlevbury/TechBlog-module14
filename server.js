@@ -3,6 +3,12 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./routes'); // if you want to specify the index file in routes directory
+const Handlebars = require('handlebars');
+const moment = require('moment');
+
+Handlebars.registerHelper('formatDate', function(date, format) {
+  return moment(date).format(format);
+});
 
 
 const helpers = require('./utils/helpers');
@@ -50,6 +56,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
+app.use('/api/blogs', require('./routes/api/blogPostRoutes'));
 
 
 sequelize.sync({ force: false }).then(() => {

@@ -24,30 +24,30 @@ router.get('/',  async (req, res) => {
 
     const blogPosts = blogPostsData.map((blogPost) => blogPost.get({ plain: true }));
 console.log(blogPosts);
-    res.render('blog', { blogPosts, logged_in: req.session.logged_in });
+    res.render('profile', { blogPosts, logged_in: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/api/blogs/:id', async (req, res) => {
   try {
-    const blogData = await BlogPost.destroy({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
-      },
-    });
+      const blog = await Blog.destroy({
+          where: {
+              id: req.params.id
+          }
+      });
 
-    if (!blogData) {
-      res.status(404).json({ message: 'No blog post found with this id!' });
-      return;
-    }
+      if (!blog) {
+          res.status(404).json({ message: 'No blog found with this id!' });
+          return;
+      }
 
-    res.status(200).json(blogData);
+      res.status(200).json(blog);
   } catch (err) {
-    res.status(500).json(err);
+      res.status(500).json(err);
   }
 });
+
 
 module.exports = router;
