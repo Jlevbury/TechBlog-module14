@@ -87,12 +87,12 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 router.get('/signup', (req, res) => {
-    // If the user is already logged in, redirect the request to another route
-   res.render("signup");
-  
-    res.render('login');
-  });
-router.get("/post", (req, res) =>{
-    res.render("blogPosts");
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+      res.redirect('/');
+      return;
+  }
+  res.render('signup');
 });
+
 module.exports = router;
