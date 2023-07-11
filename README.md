@@ -1,7 +1,7 @@
 # TechBlog-module14
 
 # The Tech Blog
-
+https://thetechblawg-9cc5c7246bb3.herokuapp.com/
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -28,7 +28,7 @@ Simply follow the intuitive button layout to perform the desired actions.
 This project is covered under the MIT license. For more information see [the following link](https://opensource.org/licenses/MIT)
 
 ## Contributing
-n/a
+Special thanks to @ChaseChambers for technical assistance in troubleshooting routing errors during development of this application.
 
 ## Tests
 n/a
